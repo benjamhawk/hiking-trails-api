@@ -6,7 +6,9 @@ const keys = require('./config/keys')
 
 const app = express()
 require('./models/User')
+require('./models/Trail')
 const authRoutes = require('./routes/authRoutes')
+const trailRoutes = require('./routes/trailRoutes')
 
 try {
   mongoose.connect(keys.mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -22,7 +24,7 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader(
     'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept'
+    'Origin, X-Requested-With, Content-Type, Accept, Authorization'
   )
   res.setHeader(
     'Access-Control-Allow-Methods',
@@ -32,5 +34,6 @@ app.use((req, res, next) => {
 })
 
 app.use('/auth', authRoutes)
+app.use('/trails', trailRoutes)
 
 module.exports = app
