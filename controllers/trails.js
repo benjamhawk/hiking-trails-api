@@ -26,6 +26,31 @@ exports.createTrail = async (req, res, next) => {
   }
 }
 
+exports.updateTrail = async (req, res, next) => {
+  const trail = {
+    name: req.body.name,
+    description: req.body.description,
+    image: req.body.image,
+    location: req.body.location
+  }
+
+  try {
+    const updatedTrail = await Trail.updateOne({ _id: req.params.id }, trail)
+
+    if (updatedTrail.n) {
+      console.log('success')
+      res.status(200).json({ message: 'Update successful!' })
+    } else {
+      res.status(401).json({ message: 'Not authorized!' })
+    }
+  } catch (err) {
+    console.log(err)
+    res.status(500).json({
+      message: err
+    })
+  }
+}
+
 exports.getTrails = async (req, res, next) => {
   const pageSize = +req.query.pagesize
   const currentPage = +req.query.page
@@ -64,6 +89,26 @@ exports.getTrail = async (req, res, next) => {
   } catch (err) {
     res.status(500).json({
       message: 'Fetching Trail Failed'
+    })
+  }
+}
+
+exports.deleteTrail = async (req, res, next) => {
+  console.log('hi')
+  try {
+    const result = await Trail.deleteOne({
+      _id: req.params.id
+    })
+
+    if (result.n > 0) {
+      res.status(200).json({ message: 'Deletion successful!' })
+    } else {
+      res.status(401).json({ message: 'Not authorized!' })
+    }
+  } catch (err) {
+    console.log(err)
+    res.status(500).json({
+      message: 'Deleting trail failed!'
     })
   }
 }
