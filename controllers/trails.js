@@ -7,6 +7,7 @@ exports.createTrail = async (req, res, next) => {
     description: req.body.description,
     image: req.body.image,
     location: req.body.location,
+    creator: req.body.creator,
     date: Date.now()
   })
 
@@ -94,7 +95,6 @@ exports.getTrail = async (req, res, next) => {
 }
 
 exports.deleteTrail = async (req, res, next) => {
-  console.log('hi')
   try {
     const result = await Trail.deleteOne({
       _id: req.params.id

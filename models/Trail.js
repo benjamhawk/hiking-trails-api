@@ -18,6 +18,10 @@ const TrailSchema = new Schema({
     type: Array,
     required: true
   },
+  creator: {
+    type: String,
+    required: true
+  },
   date: {
     type: Date,
     default: Date.now
