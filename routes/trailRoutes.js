@@ -5,7 +5,7 @@ const checkAuth = require('../middlewares/check-auth')
 
 const router = express.Router()
 
-router.get('', checkAuth, TrailsController.getTrails)
+router.get('', TrailsController.getTrails)
 
 router.get('/:id', TrailsController.getTrail)
 
