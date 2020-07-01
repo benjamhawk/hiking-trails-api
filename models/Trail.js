@@ -6,6 +6,10 @@ const TrailSchema = new Schema({
     type: String,
     required: true
   },
+  preview: {
+    type: String,
+    required: true
+  },
   description: {
     type: String,
     required: true

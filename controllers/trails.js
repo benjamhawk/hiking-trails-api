@@ -4,6 +4,7 @@ const Trail = mongoose.model('trails')
 exports.createTrail = async (req, res, next) => {
   const trail = new Trail({
     name: req.body.name,
+    preview: req.body.preview,
     description: req.body.description,
     image: req.body.image,
     location: req.body.location,
@@ -30,6 +31,7 @@ exports.createTrail = async (req, res, next) => {
 exports.updateTrail = async (req, res, next) => {
   const trail = {
     name: req.body.name,
+    preview: req.body.preview,
     description: req.body.description,
     image: req.body.image,
     location: req.body.location
