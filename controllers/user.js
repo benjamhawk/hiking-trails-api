@@ -23,7 +23,7 @@ exports.createUser = async (req, res, next) => {
     })
   } catch (err) {
     res.status(500).json({
-      message: err
+      message: 'Email aready in use. Please login or try again with a different email address.'
     })
   }
 }
