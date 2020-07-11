@@ -8,6 +8,9 @@
     "lint": "eslint --ignore-path .gitignore .",
     "lint-fix": "npm run lint -- --fix"
   },
+  "engines": {
+    "node": "10.x"
+  },
   "author": "Ben Hawkins",
   "license": "ISC",
   "dependencies": {
