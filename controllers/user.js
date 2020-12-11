@@ -23,7 +23,8 @@ exports.createUser = async (req, res, next) => {
     })
   } catch (err) {
     res.status(500).json({
-      message: 'Email aready in use. Please login or try again with a different email address.'
+      message:
+        'Email aready in use. Please login or try again with a different email address.'
     })
   }
 }
@@ -61,6 +62,25 @@ exports.userLogin = async (req, res) => {
   } catch (err) {
     return res.status(401).json({
       message: 'Invalid authentication credentials'
+    })
+  }
+}
+
+exports.deleteUser = async (req, res) => {
+  try {
+    const result = await User.deleteOne({
+      _id: req.userData.userId
+    })
+
+    if (result.n > 0) {
+      res.status(200).json({ message: 'Deletion successful!' })
+    } else {
+      res.status(401).json({ message: 'Unable to delete user' })
+    }
+  } catch (err) {
+    console.log(err)
+    res.status(500).json({
+      message: 'Deleting trail failed!'
     })
   }
 }

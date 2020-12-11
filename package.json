@@ -11,6 +11,7 @@
   "engines": {
     "node": "10.x"
   },
+  "prettier": "prettier-config-standard",
   "author": "Ben Hawkins",
   "license": "ISC",
   "dependencies": {
@@ -35,6 +36,8 @@
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.1"
+    "eslint-plugin-standard": "^4.0.1",
+    "prettier": "^2.1.2",
+    "prettier-config-standard": "^1.0.1"
   }
 }

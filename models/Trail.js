@@ -22,6 +22,14 @@ const TrailSchema = new Schema({
     type: Array,
     required: true
   },
+  city: {
+    type: String,
+    required: true
+  },
+  state: {
+    type: String,
+    required: true
+  },
   creator: {
     type: String,
     required: true

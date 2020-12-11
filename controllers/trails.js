@@ -1,5 +1,7 @@
+const { default: Axios } = require('axios')
 const mongoose = require('mongoose')
 const Trail = mongoose.model('trails')
+const keys = require('../config/keys')
 
 exports.createTrail = async (req, res, next) => {
   const trail = new Trail({
@@ -8,6 +10,8 @@ exports.createTrail = async (req, res, next) => {
     description: req.body.description,
     image: req.body.image,
     location: req.body.location,
+    city: req.body.city,
+    state: req.body.state,
     creator: req.body.creator,
     date: Date.now()
   })
@@ -34,7 +38,9 @@ exports.updateTrail = async (req, res, next) => {
     preview: req.body.preview,
     description: req.body.description,
     image: req.body.image,
-    location: req.body.location
+    location: req.body.location,
+    city: req.body.city,
+    state: req.body.state
   }
 
   try {
@@ -111,6 +117,40 @@ exports.deleteTrail = async (req, res, next) => {
     console.log(err)
     res.status(500).json({
       message: 'Deleting trail failed!'
+    })
+  }
+}
+
+exports.deleteTrailByName = async (req, res, next) => {
+  try {
+    const result = await Trail.deleteOne({
+      name: req.params.name
+    })
+
+    if (result.n > 0) {
+      res.status(200).json({ message: 'Deletion successful!' })
+    } else {
+      res.status(401).json({ message: 'Not authorized!' })
+    }
+  } catch (err) {
+    console.log(err)
+    res.status(500).json({
+      message: 'Deleting trail failed!'
+    })
+  }
+}
+
+exports.getCoords = async ({ params }, res) => {
+  try {
+    const response = await Axios.get(
+      `https://maps.googleapis.com/maps/api/geocode/json?address=+${params.city},+${params.state}&key=${keys.geoKey}`
+    )
+
+    res.json(response.data.results[0].geometry.location)
+  } catch (err) {
+    console.log(err)
+    res.status(500).json({
+      message: 'Unable to fetch coordinates!'
     })
   }
 }
