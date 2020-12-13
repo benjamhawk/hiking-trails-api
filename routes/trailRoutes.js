@@ -7,6 +7,8 @@ const router = express.Router()
 
 router.get('', TrailsController.getTrails)
 
+router.get('/myTrails', checkAuth, TrailsController.getMyTrails)
+
 router.get('/:id', TrailsController.getTrail)
 
 router.get('/coordinates/:city/:state', TrailsController.getCoords)

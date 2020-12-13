@@ -60,6 +60,38 @@ exports.updateTrail = async (req, res, next) => {
   }
 }
 
+exports.getMyTrails = async (req, res, next) => {
+  const pageSize = +req.query.pagesize
+  const currentPage = +req.query.page
+
+  if (!req.userData) {
+    return res.status(500).json({
+      message: 'Fetching trails failed'
+    })
+  }
+
+  const trailQuery = Trail.find({ creator: req.userData.userId })
+
+  if (pageSize && currentPage) {
+    trailQuery.skip(pageSize * (currentPage - 1)).limit()
+  }
+
+  try {
+    const fetchedTrails = await trailQuery
+    const count = await Trail.count()
+
+    res.status(200).json({
+      message: 'Trails fetched Successfully!',
+      posts: fetchedTrails,
+      maxPosts: count
+    })
+  } catch (err) {
+    res.status(500).json({
+      message: 'Fetching trails failed'
+    })
+  }
+}
+
 exports.getTrails = async (req, res, next) => {
   const pageSize = +req.query.pagesize
   const currentPage = +req.query.page
